@@ -1,0 +1,35 @@
+GDPR (General Data Protection Regulation) Policy Summary
+
+1. Purpose and Scope
+The General Data Protection Regulation (GDPR) is a comprehensive data protection law enacted by the European Union (EU) in May 2018. It applies to all organizations that process personal data of EU residents, regardless of where the organization is based. The regulation aims to give individuals control over their personal data and to simplify the regulatory environment for international business.
+
+2. Key Principles of GDPR
+GDPR is built on seven key principles:
+- Lawfulness, fairness, and transparency: Data must be processed lawfully, fairly, and in a transparent manner.
+- Purpose limitation: Data should be collected for specified, explicit, and legitimate purposes.
+- Data minimization: Only data that is necessary for the specified purpose should be collected.
+- Accuracy: Personal data must be accurate and kept up to date.
+- Storage limitation: Data should be kept only for as long as necessary.
+- Integrity and confidentiality: Data must be processed securely to prevent unauthorized access, loss, or damage.
+- Accountability: The data controller is responsible for demonstrating compliance with GDPR principles.
+
+3. Individual Rights Under GDPR
+GDPR grants several rights to data subjects:
+- Right to access: Individuals can request access to their personal data.
+- Right to rectification: Individuals can request correction of inaccurate data.
+- Right to erasure (Right to be forgotten): Individuals can request deletion of their data.
+- Right to restrict processing: Individuals can request limitation of data processing.
+- Right to data portability: Individuals can request their data in a machine-readable format.
+- Right to object: Individuals can object to data processing.
+
+4. Data Breach Notification
+Organizations must notify the relevant supervisory authority of a personal data breach within 72 hours of becoming aware of it. If the breach is likely to result in a high risk to individuals, those individuals must also be notified without undue delay.
+
+5. Data Protection Officer (DPO)
+Organizations must appoint a Data Protection Officer if they are a public authority, carry out large-scale systematic monitoring, or process special categories of data on a large scale.
+
+6. Penalties for Non-Compliance
+Non-compliance with GDPR can result in fines up to 20 million euros or 4% of the organization's global annual turnover, whichever is higher. Minor violations can result in fines up to 10 million euros or 2% of global annual turnover.
+
+7. Cross-Border Data Transfers
+GDPR restricts the transfer of personal data outside the EU/EEA to countries that do not provide adequate data protection. Organizations must implement appropriate safeguards such as Standard Contractual Clauses (SCCs) or Binding Corporate Rules (BCRs) for such transfers.

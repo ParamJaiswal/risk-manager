@@ -1,0 +1,60 @@
+Cybersecurity Rules and Best Practices Policy
+
+1. Password Management
+All employees must follow strict password management practices:
+- Passwords must be at least 12 characters long and include uppercase letters, lowercase letters, numbers, and special characters.
+- Passwords must be changed every 90 days.
+- Password reuse is prohibited for the last 12 passwords.
+- Multi-factor authentication (MFA) must be enabled for all corporate accounts.
+- Never share passwords with anyone, including IT support staff.
+- Use a company-approved password manager for storing credentials.
+
+2. Email Security
+Email is a common attack vector for cybercriminals:
+- Do not open attachments from unknown senders.
+- Verify the sender's email address before clicking any links.
+- Report suspicious emails to the IT security team immediately.
+- Never send sensitive data (passwords, financial information, personal data) via unencrypted email.
+- Be cautious of phishing attempts that create a sense of urgency.
+- Use email encryption for sensitive communications.
+
+3. Device Security
+All company devices must be properly secured:
+- Enable full disk encryption on all laptops and mobile devices.
+- Install and maintain up-to-date antivirus software.
+- Enable automatic operating system and software updates.
+- Lock your computer when stepping away from your desk (Windows+L or Cmd+Control+Q).
+- Do not connect personal USB drives or external devices to company computers.
+- Report lost or stolen devices to IT security within 1 hour.
+
+4. Network Security
+Follow these rules when connecting to networks:
+- Only connect to approved corporate Wi-Fi networks.
+- Use VPN when working remotely or using public Wi-Fi.
+- Do not attempt to bypass network security controls or firewalls.
+- Report any unusual network activity or performance issues.
+- Do not install unauthorized network devices (routers, switches, access points).
+
+5. Data Classification and Handling
+All company data must be classified and handled appropriately:
+- Public: Information that can be freely shared.
+- Internal: Information for internal use only, not to be shared externally.
+- Confidential: Sensitive information requiring restricted access.
+- Restricted: Highly sensitive information with strict access controls.
+- Always apply the appropriate classification label to documents and emails.
+- Dispose of physical documents containing sensitive information using cross-cut shredders.
+
+6. Incident Response
+In case of a security incident:
+- Immediately report the incident to the IT Security team via the security hotline.
+- Do not attempt to investigate or remediate the incident on your own.
+- Preserve evidence by not deleting files, emails, or logs related to the incident.
+- Document what happened, when it happened, and what actions were taken.
+- Cooperate fully with the incident response team during investigation.
+
+7. Social Engineering Awareness
+Be aware of social engineering tactics:
+- Never provide sensitive information over the phone without verifying the caller's identity.
+- Be suspicious of unsolicited requests for information, even from people claiming to be colleagues.
+- Verify unusual requests through a separate communication channel.
+- Tailgating: Do not allow unauthorized individuals to follow you into secure areas.

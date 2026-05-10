@@ -1,0 +1,30 @@
+# Java
+backend/target/
+*.class
+*.jar
+*.war
+
+# Python
+ai-service/__pycache__/
+ai-service/**/__pycache__/
+ai-service/*.pyc
+ai-service/chroma_data/
+ai-service/.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+*.env.local

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Training Manager - Interactive Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
+                            300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .hidden { display: none !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
+        .bg-glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
+        .loading-dots div { animation: bounce 1.4s infinite ease-in-out both; }
+        .loading-dots div:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots div:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+    </style>
+</head>
+<body class="text-slate-800 h-screen w-screen overflow-hidden">
+
+    <!-- ================== LOGIN VIEW ================== -->
+    <div id="loginView" class="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-slate-900 flex items-center justify-center p-4 relative z-50">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative w-full max-w-md animate-fadeIn z-10">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl mb-4 border border-white/20">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h1 class="text-3xl font-bold text-white tracking-tight">Compliance Training Manager</h1>
+                <p class="text-primary-200 mt-2">AI-Powered Compliance Management Platform</p>
+            </div>
+
+            <div class="bg-glass rounded-2xl p-8 border border-white/20 shadow-2xl">
+                <h2 class="text-xl font-semibold text-white mb-6">Sign In</h2>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-primary-200 text-sm font-medium mb-2">Username</label>
+                        <input type="text" value="admin" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary-400" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-primary-200 text-sm font-medium mb-2">Password</label>
+                        <input type="password" value="admin123" class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-primary-400" readonly>
+                    </div>
+                    <button onclick="doLogin()" class="w-full py-3 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 text-white font-semibold rounded-xl shadow-lg shadow-primary-500/30 transition-all duration-300">
+                        Sign In
+                    </button>
+                </div>
+                <div class="mt-6 pt-6 border-t border-white/10 text-center">
+                    <span class="text-primary-200 text-xs bg-white/10 px-3 py-1 rounded-full border border-white/10">Interactive Demo Mode (No backend required)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================== DASHBOARD VIEW ================== -->
+    <div id="dashboardView" class="hidden h-screen flex flex-col bg-slate-50 overflow-y-auto">
+        <!-- Navbar -->
+        <nav class="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-600 shadow-lg shrink-0">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <div>
+                            <h1 class="text-white font-bold text-lg tracking-tight">CTM</h1>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="hidden sm:flex items-center space-x-2 bg-white/10 rounded-full px-4 py-1.5">
+                            <span class="text-white text-sm font-medium">admin</span>
+                            <span class="text-primary-200 text-xs bg-primary-900/30 px-2 py-0.5 rounded-full">ADMIN</span>
+                        </div>
+                        <button onclick="doLogout()" class="text-primary-100 hover:text-white text-sm bg-white/10 px-3 py-1.5 rounded-lg transition-all">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+            <!-- Tabs -->
+            <div class="flex space-x-2 bg-white rounded-xl p-1.5 border border-slate-200 shadow-sm mb-6 w-fit">
+                <button id="tab-trainings" onclick="switchTab('trainings')" class="px-5 py-2 rounded-lg text-sm font-medium transition-all bg-primary-500 text-white shadow-sm">📋 Trainings</button>
+                <button id="tab-ai" onclick="switchTab('ai')" class="px-5 py-2 rounded-lg text-sm font-medium transition-all text-slate-600 hover:bg-slate-100">🤖 AI Assistant (Demo)</button>
+            </div>
+
+            <!-- Tab Content: Trainings -->
+            <div id="content-trainings" class="animate-fadeIn">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-slate-800">Compliance Trainings</h2>
+                    <button class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg shadow-sm opacity-50 cursor-not-allowed">New Training (Demo)</button>
+                </div>
+                
+                <div class="grid gap-4">
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <h3 class="font-semibold text-slate-800">Cyber Security Awareness</h3>
+                                    <span class="text-xs px-2.5 py-0.5 rounded-full border font-medium bg-emerald-100 text-emerald-700 border-emerald-200">ACTIVE</span>
+                                </div>
+                                <p class="text-sm text-slate-500">This training covers essential cybersecurity practices including password management, phishing awareness, and data protection protocols.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <h3 class="font-semibold text-slate-800">GDPR Compliance Training</h3>
+                                    <span class="text-xs px-2.5 py-0.5 rounded-full border font-medium bg-emerald-100 text-emerald-700 border-emerald-200">ACTIVE</span>
+                                </div>
+                                <p class="text-sm text-slate-500">Learn about the General Data Protection Regulation, individual rights, data breach notification procedures, and organizational compliance requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <h3 class="font-semibold text-slate-800">Employee Code of Conduct</h3>
+                                    <span class="text-xs px-2.5 py-0.5 rounded-full border font-medium bg-amber-100 text-amber-700 border-amber-200">PENDING</span>
+                                </div>
+                                <p class="text-sm text-slate-500">Comprehensive training on workplace behavior expectations, anti-harassment policies, conflict of interest guidelines, and confidentiality requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: AI Panel -->
+            <div id="content-ai" class="hidden animate-fadeIn space-y-6 max-w-4xl">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <div class="ml-3"><p class="text-sm text-blue-700"><strong>Interactive Demo:</strong> Click the buttons below to see simulated AI responses using RAG, ChromaDB, and Groq LLM logic.</p></div>
+                    </div>
+                </div>
+
+                <!-- Feature 1: Describe -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <h3 class="font-semibold text-slate-700 mb-3 flex items-center space-x-2">
+                        <span class="w-6 h-6 bg-primary-100 text-primary-600 rounded-md flex items-center justify-center text-xs font-bold">1</span>
+                        <span>AI Description Generator</span>
+                    </h3>
+                    <div class="flex space-x-2">
+                        <input type="text" value="Data Privacy Training" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm bg-slate-50" readonly>
+                        <button onclick="simulateAction('desc')" class="px-6 py-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white text-sm font-medium rounded-lg shadow-sm hover:from-primary-600 hover:to-primary-700">Generate</button>
+                    </div>
+                    
+                    <div id="desc-loading" class="hidden loading-dots flex justify-center py-4">
+                        <div class="w-2 h-2 bg-primary-500 rounded-full mx-1"></div>
+                        <div class="w-2 h-2 bg-primary-500 rounded-full mx-1"></div>
+                        <div class="w-2 h-2 bg-primary-500 rounded-full mx-1"></div>
+                    </div>
+                    
+                    <div id="desc-result" class="hidden mt-4 p-4 bg-primary-50 rounded-lg border border-primary-100 animate-fadeIn text-sm text-slate-700">
+                        This comprehensive Data Privacy Training equips employees with essential knowledge to protect sensitive information and ensure compliance with global privacy regulations. Participants will learn how to identify PII (Personally Identifiable Information), understand data handling best practices, and recognize potential privacy risks in their daily workflows.
+                    </div>
+                </div>
+
+                <!-- Feature 2: Recommend -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <h3 class="font-semibold text-slate-700 mb-3 flex items-center space-x-2">
+                        <span class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded-md flex items-center justify-center text-xs font-bold">2</span>
+                        <span>AI Compliance Recommendations</span>
+                    </h3>
+                    <div class="flex space-x-2">
+                        <input type="text" value="Password Security" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm bg-slate-50" readonly>
+                        <button onclick="simulateAction('rec')" class="px-6 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white text-sm font-medium rounded-lg shadow-sm hover:from-emerald-600 hover:to-emerald-700">Recommend</button>
+                    </div>
+
+                    <div id="rec-loading" class="hidden loading-dots flex justify-center py-4">
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full mx-1"></div>
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full mx-1"></div>
+                        <div class="w-2 h-2 bg-emerald-500 rounded-full mx-1"></div>
+                    </div>
+
+                    <div id="rec-result" class="hidden mt-4 space-y-2 animate-fadeIn">
+                        <div class="flex items-start space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-sm text-slate-700"><span class="w-5 h-5 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><p>Enforce Multi-Factor Authentication (MFA) across all corporate systems.</p></div>
+                        <div class="flex items-start space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-sm text-slate-700"><span class="w-5 h-5 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><p>Require minimum 12-character passwords combining alphanumeric and special characters.</p></div>
+                        <div class="flex items-start space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-sm text-slate-700"><span class="w-5 h-5 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><p>Mandate password rotations every 90 days with strict history checks to prevent reuse.</p></div>
+                        <div class="flex items-start space-x-3 p-3 bg-emerald-50 rounded-lg border border-emerald-100 text-sm text-slate-700"><span class="w-5 h-5 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><p>Provide and require the use of a company-approved enterprise password manager.</p></div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: RAG Chatbot -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <h3 class="font-semibold text-slate-700 mb-1 flex items-center space-x-2">
+                        <span class="w-6 h-6 bg-violet-100 text-violet-600 rounded-md flex items-center justify-center text-xs font-bold">3</span>
+                        <span>RAG Chatbot (Document Q&A)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 ml-8">Queries embedded compliance documents stored in ChromaDB</p>
+                    
+                    <div class="flex space-x-2">
+                        <input type="text" value="What are the rules for device security and passwords?" class="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm bg-slate-50 font-medium" readonly>
+                        <button onclick="simulateAction('rag')" class="px-6 py-2 bg-gradient-to-r from-violet-500 to-violet-600 text-white text-sm font-medium rounded-lg shadow-sm hover:from-violet-600 hover:to-violet-700">Ask LLM</button>
+                    </div>
+
+                    <div id="rag-loading" class="hidden py-6 text-center animate-fadeIn">
+                        <p class="text-xs text-slate-400 mb-2">1. Embedding query via sentence-transformers...</p>
+                        <p class="text-xs text-slate-400 mb-2">2. Searching ChromaDB for similar chunks...</p>
+                        <p class="text-xs text-violet-500 font-medium">3. Generating answer via Groq LLaMA 3...</p>
+                        <div class="loading-dots flex justify-center mt-2">
+                            <div class="w-2 h-2 bg-violet-500 rounded-full mx-1"></div>
+                            <div class="w-2 h-2 bg-violet-500 rounded-full mx-1"></div>
+                            <div class="w-2 h-2 bg-violet-500 rounded-full mx-1"></div>
+                        </div>
+                    </div>
+
+                    <div id="rag-result" class="hidden mt-4 animate-fadeIn">
+                        <div class="p-4 bg-violet-50 rounded-lg border border-violet-100 text-sm text-slate-700">
+                            <p>Based on the retrieved compliance policies, here are the key rules:</p>
+                            <br>
+                            <p><strong>Passwords:</strong> They must be at least 12 characters long, combining uppercase, lowercase, numbers, and special characters. They must be changed every 90 days, and you cannot reuse your last 12 passwords. MFA is mandatory for all accounts.</p>
+                            <br>
+                            <p><strong>Device Security:</strong> All laptops and mobile devices must have full disk encryption enabled. You must install up-to-date antivirus software, enable automatic OS updates, and lock your computer when stepping away (Windows+L / Cmd+Control+Q). Connecting personal USB drives is strictly prohibited.</p>
+                        </div>
+                        <div class="mt-3 flex items-center gap-2">
+                            <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Sources retrieved from ChromaDB:</span>
+                            <span class="text-xs bg-violet-100 text-violet-700 px-2.5 py-1 rounded-md font-mono">cybersecurity_rules.txt (similarity: 0.89)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-10"></div> <!-- padding bottom -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function doLogin() {
+            document.getElementById('loginView').classList.add('hidden');
+            document.getElementById('dashboardView').classList.remove('hidden');
+            document.getElementById('dashboardView').classList.add('flex');
+        }
+
+        function doLogout() {
+            document.getElementById('dashboardView').classList.remove('flex');
+            document.getElementById('dashboardView').classList.add('hidden');
+            document.getElementById('loginView').classList.remove('hidden');
+            // reset UI state
+            ['desc', 'rec', 'rag'].forEach(id => {
+                document.getElementById(`${id}-result`).classList.add('hidden');
+                document.getElementById(`${id}-loading`).classList.add('hidden');
+            });
+            switchTab('trainings');
+        }
+
+        function switchTab(tab) {
+            if (tab === 'trainings') {
+                document.getElementById('tab-trainings').className = "px-5 py-2 rounded-lg text-sm font-medium transition-all bg-primary-500 text-white shadow-sm";
+                document.getElementById('tab-ai').className = "px-5 py-2 rounded-lg text-sm font-medium transition-all text-slate-600 hover:bg-slate-100";
+                document.getElementById('content-trainings').classList.remove('hidden');
+                document.getElementById('content-ai').classList.add('hidden');
+            } else {
+                document.getElementById('tab-ai').className = "px-5 py-2 rounded-lg text-sm font-medium transition-all bg-primary-500 text-white shadow-sm";
+                document.getElementById('tab-trainings').className = "px-5 py-2 rounded-lg text-sm font-medium transition-all text-slate-600 hover:bg-slate-100";
+                document.getElementById('content-ai').classList.remove('hidden');
+                document.getElementById('content-trainings').classList.add('hidden');
+            }
+        }
+
+        function simulateAction(type) {
+            document.getElementById(`${type}-result`).classList.add('hidden');
+            document.getElementById(`${type}-loading`).classList.remove('hidden');
+            
+            // Simulate network delay for effect
+            setTimeout(() => {
+                document.getElementById(`${type}-loading`).classList.add('hidden');
+                document.getElementById(`${type}-result`).classList.remove('hidden');
+            }, type === 'rag' ? 2500 : 1200); // RAG takes longer to show the "pipeline" text
+        }
+    </script>
+</body>
+</html>
